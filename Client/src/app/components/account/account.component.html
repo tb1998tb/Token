@@ -1,0 +1,53 @@
+
+ 
+    <button id="signTab" class="tab" [ngClass]="{'active':tabNum==2}" (click)="replaceTab(2)">להרשמה</button>
+    <button id="loginTab" class="tab" [ngClass]="{'active':tabNum==1}" (click)="replaceTab(1)">להתחברות</button>
+
+
+    <div id="login" *ngIf="tabNum==1&&status==null">
+
+      <div class="row">
+        <div class="col-xs-12 pull-right">
+          <input placeholder="שם משתמש"
+                 type="text"
+                 [(ngModel)]="user.name"
+                 autocomplete="off">
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-xs-12 pull-right">
+          <input placeholder="סיסמא"
+                 type="password"
+                 [(ngModel)]="user.password"
+                 [type]="password"
+                 autocomplete="off">
+        </div>
+      </div>
+      <button class="button button-block" (click)="login()">התחבר</button>
+      <button class="button button-block" (click)="loginPost()">התחבר עם post</button>
+    </div>
+
+  <div id="signup" *ngIf="tabNum==2||status!=null">
+   
+      <div class="row">
+        <div class="col-xs-12 col-sm-6 pull-right">
+            <input 
+                   placeholder="שם משתמש"
+                   type="text"
+                   [(ngModel)]="user.name"
+                   autocomplete="off">
+        </div>
+     
+
+        <div class="col-xs-12 col-sm-6 pull-right">
+            <input 
+                   placeholder="סיסמא"
+                   [type]="password"
+                   [(ngModel)]="user.password"
+                   autocomplete="off">
+        </div>
+      </div>
+    <button *ngIf="status==null" class="button button-block" (click)="register()">הירשם</button>
+    </div>
+
+

@@ -1,0 +1,8 @@
+<div class="header">
+  <a routerLink="account">התחבר</a>
+  <a routerLink="**">בית</a>
+  שלום {{userServ.user?.name}}
+  <button *ngIf="userServ.user!=null" (click)="logout()">התנתק</button>
+</div>
+
+<router-outlet></router-outlet>
