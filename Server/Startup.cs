@@ -8,6 +8,7 @@ using System;
 using System.Collections.Generic;
 using System.Security.Claims;
 using System.Threading.Tasks;
+using System.Web;
 using System.Web.Http;
 using System.Web.Http.Cors;
 
@@ -48,13 +49,16 @@ namespace Server
 			return Task.FromResult<object>(null);
 
 		}
-
 		public override Task GrantResourceOwnerCredentials(OAuthGrantResourceOwnerCredentialsContext context)
 		{
-			var dict = new Dictionary<string, string>();
-			var identity = new ClaimsIdentity(context.Options.AuthenticationType);
-			identity.AddClaim(new Claim(ClaimTypes.Name, context.UserName));
-			context.Validated(identity);
+			if (HttpContext.Current.Request.UrlReferrer == null&&HttpContext.Current.Request.UserAgent==null)
+			{
+				var dict = new Dictionary<string, string>();
+				var identity = new ClaimsIdentity(context.Options.AuthenticationType);
+				identity.AddClaim(new Claim(ClaimTypes.Name, context.UserName));
+				context.Validated(identity);
+			}
+			else context.Rejected();
 			return Task.FromResult<object>(null);
 		}
 	}
