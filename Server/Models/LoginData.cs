@@ -5,6 +5,6 @@ namespace Server.Models
 	{
 		public string TokenJson { get; set; }
 
-		public User User { get; set; }
+		public user1 User { get; set; }
 	}
 }

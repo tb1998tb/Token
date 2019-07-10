@@ -10,15 +10,25 @@ export class UserService {
   public user: User;
   httpOptions;
   url = "http://localhost:51396/";
-  constructor(private http: HttpClient, private router: Router) { this.resetToken(); }
+  constructor(private http: HttpClient, private router: Router) {
+    this.getLoggedUser();
+      this.resetToken();
+    if (localStorage['token']) {
+      this.changeToken(localStorage['token']);
+    }
+    
+  }
 
   changeToken(token: string) {
+    localStorage.setItem('token', token);
+
     this.httpOptions.headers =
-      new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': "Bearer " + token });
+      new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': "Bearer " + localStorage['token'] });
 
   }
 
   resetToken() {
+
     this.httpOptions = { headers: new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': '' }) };
   }
 
@@ -39,6 +49,15 @@ export class UserService {
         this.user = null;
         this.resetToken();
         this.router.navigate(["/account"]);
+        alert(res.Message);
+      }
+    });
+  }
+
+  getLoggedUser() {
+    this.http.get(`${this.url}/getLoggedUser`, this.httpOptions).subscribe((res: any) => {
+      if (res.Success) {
+        this.user = res.Value;
         alert(res.Message);
       }
     });

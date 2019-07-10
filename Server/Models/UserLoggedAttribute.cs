@@ -32,7 +32,7 @@ namespace Server.Models
 			var user = HttpContext.Current.User as ClaimsPrincipal;
 			var identity = user.Identity as ClaimsIdentity;
 			var claim = identity.Claims.Where(c => c.Type == ClaimTypes.Name).Select(s=>s.Value).SingleOrDefault();
-			actionContext.ActionArguments[Descriptor.ParameterName] = db.Users.Where(w => w.name == claim).FirstOrDefault();
+			actionContext.ActionArguments[Descriptor.ParameterName] = db.user1.Where(w => w.user_name == claim).FirstOrDefault();
 			return Task.FromResult<object>(null);
 		}
 	}

@@ -53,6 +53,7 @@ namespace Server
 		{
 			if (HttpContext.Current.Request.UrlReferrer == null&&HttpContext.Current.Request.UserAgent==null)
 			{
+                //בדיקה האם קיים בdb
 				var dict = new Dictionary<string, string>();
 				var identity = new ClaimsIdentity(context.Options.AuthenticationType);
 				identity.AddClaim(new Claim(ClaimTypes.Name, context.UserName));

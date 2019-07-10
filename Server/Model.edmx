@@ -4,52 +4,57 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="WolfProjectsModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
-        <EntityType Name="Users">
+    <Schema Namespace="WolfProjectsModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="users">
           <Key>
-            <PropertyRef Name="id" />
+            <PropertyRef Name="user_id" />
           </Key>
-          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="name" Type="nvarchar(max)" />
-          <Property Name="password" Type="nvarchar(max)" />
-          <Property Name="tz" Type="nvarchar" MaxLength="10" />
-          <Property Name="hash" Type="nvarchar(max)" />
+          <Property Name="user_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="user_name" Type="nvarchar" MaxLength="50" />
+          <Property Name="password" Type="nvarchar" MaxLength="10" />
+          <Property Name="last_name" Type="nvarchar" MaxLength="50" />
+          <Property Name="first_name" Type="nvarchar" MaxLength="50" />
+          <Property Name="id_address" Type="int" />
+          <Property Name="addrss_mail" Type="nvarchar" MaxLength="50" />
         </EntityType>
         <EntityContainer Name="WolfProjectsModelStoreContainer">
-          <EntitySet Name="Users" EntityType="Self.Users" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="users" EntityType="Self.users" Schema="dbo" store:Type="Tables" />
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="WolfProjectsModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
-        <EntityType Name="User">
-          <Key>
-            <PropertyRef Name="id" />
-          </Key>
-          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="name" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="password" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="tz" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
-          <Property Name="hash" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-        </EntityType>
         <EntityContainer Name="WolfProjectsEntities" annotation:LazyLoadingEnabled="true">
-          <EntitySet Name="Users" EntityType="Self.User" />
+          <EntitySet Name="user1" EntityType="WolfProjectsModel.user1" />
         </EntityContainer>
+        <EntityType Name="user1">
+          <Key>
+            <PropertyRef Name="user_id" />
+          </Key>
+          <Property Name="user_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="user_name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="password" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="last_name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="first_name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="id_address" Type="Int32" />
+          <Property Name="addrss_mail" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
         <EntityContainerMapping StorageEntityContainer="WolfProjectsModelStoreContainer" CdmEntityContainer="WolfProjectsEntities">
-          <EntitySetMapping Name="Users">
-            <EntityTypeMapping TypeName="WolfProjectsModel.User">
-              <MappingFragment StoreEntitySet="Users">
-                <ScalarProperty Name="id" ColumnName="id" />
-                <ScalarProperty Name="name" ColumnName="name" />
+        <EntitySetMapping Name="user1">
+            <EntityTypeMapping TypeName="WolfProjectsModel.user1">
+              <MappingFragment StoreEntitySet="users">
+                <ScalarProperty Name="addrss_mail" ColumnName="addrss_mail" />
+                <ScalarProperty Name="id_address" ColumnName="id_address" />
+                <ScalarProperty Name="first_name" ColumnName="first_name" />
+                <ScalarProperty Name="last_name" ColumnName="last_name" />
                 <ScalarProperty Name="password" ColumnName="password" />
-                <ScalarProperty Name="tz" ColumnName="tz" />
-                <ScalarProperty Name="hash" ColumnName="hash" />
+                <ScalarProperty Name="user_name" ColumnName="user_name" />
+                <ScalarProperty Name="user_id" ColumnName="user_id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

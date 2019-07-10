@@ -17,7 +17,7 @@ namespace Server.Controllers
 
 		[HttpGet]
 		[Route("logout")]
-		public WebResult<string> logout([UserLogged] User user)
+		public WebResult<string> logout([UserLogged] user1 user)
 		{
 			//get user data
 			var identity = User.Identity as ClaimsIdentity;
@@ -27,16 +27,28 @@ namespace Server.Controllers
 			return new WebResult<string>
 			{
 				Success = true,
-				Message = $"{user.name} התנתק בהצלחה",
+				Message = $"{user.user_name} התנתק בהצלחה",
 				Value = null
 			};
 		}
 
-		[HttpGet]
+        [HttpGet]
+        [Route("getLoggedUser")]
+        public WebResult<user1> GetLoggedUser([UserLogged] user1 user)
+        {
+            return new WebResult<user1>
+            {
+                Success = true,
+                Message = $"{user.user_name} ",
+                Value = user
+            };
+        }
+
+        [HttpGet]
 		[Route("login")]
 		public async Task<WebResult<LoginData>> Login(string username, string password)
 		{
-			var user = db.Users.Where(w => w.name == username && w.password == password).FirstOrDefault();
+			var user = db.user1.Where(w => w.user_name == username && w.password == password).FirstOrDefault();
 			if (user != null)//אם המשתמש קיים במאגר המשך לקבלת טוקן, אחרת החזר שגיאה שהמתשמש לא קיים
 			{
 				var accessToken = await GetTokenDataAsync(username, password);
@@ -66,12 +78,12 @@ namespace Server.Controllers
 
 		[HttpPost]
 		[Route("register")]
-		public async Task<WebResult<LoginData>> Register(User user)
+		public async Task<WebResult<LoginData>> Register(user1 user)
 		{
-			db.Users.Add(user);
+			db.user1.Add(user);
 			if (db.SaveChanges() > 0)//בדיקה שהמידע נשמר
 			{
-				var accessToken = await GetTokenDataAsync(user.name, user.password);
+				var accessToken = await GetTokenDataAsync(user.user_name, user.password);
 
 				if (!string.IsNullOrEmpty(accessToken))
 				{
